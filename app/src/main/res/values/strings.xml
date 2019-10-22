@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ISABU Media Showcase</string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="init_error_text">¡Oh No! Ha habido un problema al descargar los archivos.</string>
+    <string name="init_error_button">Intentar de nuevo</string>
 </resources>

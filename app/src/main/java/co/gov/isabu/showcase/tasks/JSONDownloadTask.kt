@@ -33,7 +33,7 @@ class JSONDownloadTask internal constructor(activity: AppCompatActivity) : Async
      * Figures out if there's network connectivity, fetches the JSON file and places it in the
      * system's internal storage.
      *
-     * @return true if the download was successful, false if it wasn't.
+     * @return the fetched JSON object that could be an empty descriptor on download failure.
      */
 
     override fun doInBackground(vararg params: Unit?) : JSONObject {
@@ -69,7 +69,8 @@ class JSONDownloadTask internal constructor(activity: AppCompatActivity) : Async
 
     }
     /**
-     * Displays a Toast depending on the outcome of doInBackground().
+     * Displays a Toast depending on the outcome of doInBackground(), and launches the storage helper
+     * to refresh the map indexes.
      */
 
     override fun onPostExecute(result: JSONObject?) {

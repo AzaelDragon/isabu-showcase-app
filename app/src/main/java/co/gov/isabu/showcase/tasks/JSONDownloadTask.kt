@@ -4,12 +4,12 @@ import android.os.AsyncTask
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import co.gov.isabu.showcase.helpers.NetworkHelper
+import co.gov.isabu.showcase.helpers.PreferenceHelper
 import co.gov.isabu.showcase.helpers.StorageHelper
 import com.github.kittinunf.fuel.Fuel
 import org.json.JSONObject
 import java.io.File
 import java.lang.ref.WeakReference
-import java.util.*
 
 /**
  * Asynchronous Worker Task for fetching the multimedia map to the System's Internal Storage.
@@ -38,34 +38,9 @@ class JSONDownloadTask internal constructor(activity: AppCompatActivity) : Async
 
     override fun doInBackground(vararg params: Unit?) : JSONObject {
 
-        val activity = activityReference.get()
-        val context = activity?.applicationContext
+        val activity = activityReference.get()!!
 
-        val properties = Properties()
-        val inputStream = context?.assets?.open("config.properties")
-        properties.load(inputStream)
-
-        val descriptorUrl = properties.getProperty("resource_descriptor_url")
-        val storageLocation = StorageHelper.buildStoragePath(activity!!, "map.json")
-
-        return if (NetworkHelper.isNetworkAvailable(activityReference.get() as AppCompatActivity)) {
-
-            val result = Fuel.download(descriptorUrl)
-                .fileDestination { _, _ -> File(storageLocation)}
-                .progress { _, _ ->
-                }.responseString().third
-
-            result.fold({ value ->
-                return@fold JSONObject(value)
-            }, {
-                return@fold StorageHelper.buildEmptyDescriptor()
-            })
-
-        } else {
-
-            StorageHelper.buildEmptyDescriptor()
-
-        }
+        return NetworkHelper.fetchMapFromRemote(activity)
 
     }
     /**

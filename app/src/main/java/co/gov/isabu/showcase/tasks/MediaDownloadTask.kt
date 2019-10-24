@@ -8,15 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import co.gov.isabu.showcase.activities.ErrorActivity
 import co.gov.isabu.showcase.activities.MainActivity
+import co.gov.isabu.showcase.helpers.IntegrityHelper
 import co.gov.isabu.showcase.helpers.NetworkHelper
 import co.gov.isabu.showcase.helpers.StorageHelper
 import com.github.kittinunf.fuel.Fuel
-import org.apache.commons.codec.binary.Hex
-import org.apache.commons.codec.digest.DigestUtils
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
-import java.io.FileInputStream
 import java.lang.ref.WeakReference
 
 /**
@@ -166,7 +164,7 @@ class MediaDownloadTask internal constructor(activity: AppCompatActivity, privat
 
             if (!File(path).exists()) completionFlag = fetchAndPersist(item)
 
-            if (!verifyIntegrity(item)) {
+            if (!IntegrityHelper.verifyIntegrity(activityReference.get()!!, item)) {
 
                 completionFlag = fetchAndPersist(item)
 
@@ -203,12 +201,19 @@ class MediaDownloadTask internal constructor(activity: AppCompatActivity, privat
                     val kbytesRead = (bytesRead/1024).toInt()
                     val kbytesTotal = (bytesLeft/1024).toInt()
                     val title = "Descargando recurso '${storageFile.nameWithoutExtension}'"
-                    publishProgress(Progress(kbytesRead, kbytesTotal, title, true))
+                    publishProgress(
+                        Progress(
+                            kbytesRead,
+                            kbytesTotal,
+                            title,
+                            true
+                        )
+                    )
                 }.responseString().third
 
             return result.fold({
 
-                verifyIntegrity(jsonObject)
+                IntegrityHelper.verifyIntegrity(activityReference.get()!!, jsonObject)
 
             }, { e ->
 
@@ -222,49 +227,6 @@ class MediaDownloadTask internal constructor(activity: AppCompatActivity, privat
             return false
 
         }
-
-    }
-
-    /**
-     * Verifies the integrity of the provided object, using the Apache Commons: Codec SHA-512 hashing
-     * implementation capsuled in a Thread-Safe environment and requesting the local storage and
-     * map checksum to prove a correct match.
-     *
-     * @param jsonObject the object to analyze.
-     * @return true if the both the target and generated checksum match, false if they don't.
-     */
-
-    private fun verifyIntegrity(jsonObject: JSONObject) : Boolean {
-
-        val fileName = jsonObject.getString("name")
-        val storageLocation = StorageHelper.buildStoragePath(activityReference.get()!!, fileName)
-        val storageFile = File(storageLocation)
-        val baseChecksum = jsonObject.getString("checksum")
-
-        val checksumCheck = ThreadLocal<Boolean>()
-        checksumCheck.set(verifyChecksum(storageFile, baseChecksum))
-
-        return checksumCheck.get()!!
-
-    }
-
-    /**
-     * Provides a thread-unsafe implementation of checksum verification and local hashing with an
-     * encoded HEX string that can be used for comparison purposes.
-     *
-     * @param storedFile the local file to generate a hash from.
-     * @param checksum the reference checksum to compare from.
-     * @return true if the both the target and generated checksum match, false if they don't.
-     */
-
-    private fun verifyChecksum(storedFile: File, checksum: String) : Boolean {
-
-        val dataStream = FileInputStream(storedFile)
-        val rawDigest = DigestUtils.sha512(dataStream)
-        val digest = String(Hex.encodeHex(rawDigest))
-        dataStream.close()
-
-        return digest == checksum
 
     }
 

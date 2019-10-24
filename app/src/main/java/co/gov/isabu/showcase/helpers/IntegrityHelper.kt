@@ -7,6 +7,10 @@ import org.json.JSONObject
 import java.io.File
 import java.io.FileInputStream
 
+/**
+ * Helper that provides checksum verification utilities.
+ */
+
 class IntegrityHelper {
 
     companion object {

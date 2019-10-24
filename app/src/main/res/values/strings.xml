@@ -6,4 +6,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="init_error_text">¡Oh No! Ha habido un problema al descargar los archivos.</string>
     <string name="init_error_button">Intentar de nuevo</string>
+
+    <string name="menu_sync_map_title"> Refrescar caché de multimedia </string>
+
 </resources>

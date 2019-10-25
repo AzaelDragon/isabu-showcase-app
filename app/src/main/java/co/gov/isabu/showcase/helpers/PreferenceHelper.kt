@@ -13,7 +13,6 @@ class PreferenceHelper internal constructor(context: Context) {
 
     private val contextReference: WeakReference<Context> = WeakReference(context)
     private val properties = Properties()
-    private var descriptorUrl: String
 
     /**
      * Loads the properties' key-value map to memory to fetch specific properties.
@@ -24,18 +23,25 @@ class PreferenceHelper internal constructor(context: Context) {
         val inputStream = contextReference.get()!!.assets.open("config.properties")
         properties.load(inputStream)
 
-        this.descriptorUrl = properties.getProperty("resource_descriptor_url")
-
     }
-
-    /**
-     * Get the media descriptor URL from the properties file.
-     */
 
     fun getDescriptorUrl() : String {
 
-        return this.descriptorUrl
+        return properties.getProperty("resource_descriptor_url")
 
     }
+
+    fun getImageTransitionTime() : Int {
+
+        return properties.getProperty("image_change_transition_time").toInt()
+
+    }
+
+    fun getImageChangeDelay() : Int {
+
+        return properties.getProperty("image_change_delay").toInt()
+
+    }
+
 
 }

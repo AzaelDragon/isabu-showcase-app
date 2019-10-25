@@ -1,5 +1,7 @@
 package co.gov.isabu.showcase.helpers
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import co.gov.isabu.showcase.tasks.JSONDownloadTask
@@ -85,10 +87,12 @@ class StorageHelper(activity: AppCompatActivity) {
 
         val mapMath = buildStoragePath(activityReference.get()!!,"map.json")
 
-        return if (fileExists(mapMath)) {
+        val activity = activityReference.get()!!
+
+        val resourceMap = if (fileExists(mapMath)) {
 
             Toast.makeText(
-                activityReference.get(),
+                activity,
                 "Mapa de multimedia cargado con éxito.",
                 Toast.LENGTH_SHORT)
                 .show()
@@ -107,6 +111,13 @@ class StorageHelper(activity: AppCompatActivity) {
             buildEmptyDescriptor()
 
         }
+
+        val prefs = activity.getSharedPreferences(
+            "co.gov.isabu.showcase", Context.MODE_PRIVATE
+        )
+
+        prefs.edit().putString("co.gov.isabu.showcase.map", resourceMap.toString()).apply()
+        return resourceMap
 
     }
 

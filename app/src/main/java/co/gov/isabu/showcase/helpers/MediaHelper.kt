@@ -1,12 +1,11 @@
 package co.gov.isabu.showcase.helpers
 
-import org.json.JSONObject
 import android.content.Context.MODE_PRIVATE
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONObject
 import java.io.File
 import java.lang.ref.WeakReference
-
 
 class MediaHelper(activity: AppCompatActivity) {
 

@@ -1,9 +1,9 @@
 package co.gov.isabu.showcase.components
 
 import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.os.SystemClock
-import android.graphics.drawable.Drawable
 
 open class CyclicTransitionDrawable(var drawables: Array<Drawable>) : LayerDrawable(drawables),
 

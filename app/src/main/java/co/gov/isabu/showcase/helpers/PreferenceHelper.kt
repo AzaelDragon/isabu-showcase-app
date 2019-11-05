@@ -1,7 +1,6 @@
 package co.gov.isabu.showcase.helpers
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import java.lang.ref.WeakReference
 import java.util.*
 

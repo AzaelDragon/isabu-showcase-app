@@ -2,9 +2,9 @@ package co.gov.isabu.showcase.helpers
 
 import org.json.JSONObject
 import android.content.Context.MODE_PRIVATE
-import android.content.ContextWrapper
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
+import java.io.File
 import java.lang.ref.WeakReference
 
 
@@ -46,7 +46,7 @@ class MediaHelper(activity: AppCompatActivity) {
 
     }
 
-    private fun getAllPaths(type: MediaType) : MutableList<String> {
+    fun getAllPaths(type: MediaType) : MutableList<String> {
 
         val key = when (type) {
 
@@ -64,7 +64,8 @@ class MediaHelper(activity: AppCompatActivity) {
 
             val resourceName = mediaMap.getJSONObject(i).getString("name")
             val localPath = StorageHelper.buildStoragePath(activity, resourceName)
-            mediaLocations.add(localPath)
+            if (File(localPath).exists()) mediaLocations.add(localPath)
+
         }
 
         return mediaLocations

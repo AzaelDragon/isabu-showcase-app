@@ -38,7 +38,7 @@ class MediaDownloadTask internal constructor(activity: AppCompatActivity, privat
 
     override fun onPreExecute() {
 
-        this.mProgressDialog = ProgressDialog(activityReference.get())
+        this.mProgressDialog = ProgressDialog(activityReference.get()!!)
         this.mProgressDialog.setTitle("Preparando archivos multimedia")
         this.mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
         this.mProgressDialog.setCancelable(false)
@@ -95,33 +95,35 @@ class MediaDownloadTask internal constructor(activity: AppCompatActivity, privat
 
     override fun onPostExecute(result: Int?) {
 
+        val activity = activityReference.get()!!
+
         when (result) {
 
             1 ->
                 Toast.makeText(
-                activityReference.get()!!,
+                activity,
                 "Ha ocurrido un error inesperado al descargar las imágenes del mapa.",
                 Toast.LENGTH_SHORT)
                 .show()
 
             2 ->
                 Toast.makeText(
-                    activityReference.get()!!,
+                    activity,
                     "Ha ocurrido un error inesperado al descargar los videos del mapa.",
                     Toast.LENGTH_SHORT)
                     .show()
 
             3 ->
                 Toast.makeText(
-                    activityReference.get()!!,
+                    activity,
                     "Ha ocurrido un error inesperado al descargar tanto videos como imágenes del mapa.",
                     Toast.LENGTH_SHORT)
                     .show()
 
             else ->
                 Toast.makeText(
-                    activityReference.get()!!,
-                    "Los archivos locales concuerdan con el mapa y han sido verificados satisfactoriamente.",
+                    activity,
+                    "Aplicación iniciada satisfactoriamente.",
                     Toast.LENGTH_SHORT)
                     .show()
 
@@ -129,13 +131,11 @@ class MediaDownloadTask internal constructor(activity: AppCompatActivity, privat
 
         if (mProgressDialog.isShowing) mProgressDialog.dismiss()
 
-        val activity = activityReference.get()!!
-
         if (result == 0) {
 
             val intent = Intent(activity, MainActivity::class.java)
             activity.startActivity(intent)
-
+            
         } else {
 
             val intent = Intent(activity, ErrorActivity::class.java)

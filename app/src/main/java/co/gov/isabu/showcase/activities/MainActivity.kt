@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
      * Create a new activity, set the automatic hiding toolbar object, generate a media helper and
      * fetch all images/videos to place on the Image view's canvas and the Video view's media player.
      */
-
+  
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
      * Initializes a new video player with the fetched video URIs generated from the JSON resource
      * map.
      */
-
+  
     private fun initializePlayer() {
 
         this.videoView = findViewById(R.id.video_view)

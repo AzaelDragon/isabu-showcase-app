@@ -21,7 +21,7 @@ class MediaHelper(activity: AppCompatActivity) {
      * Find the required media map and fetch it's strings to memory. If there is not a valid media
      * map, a new, empty one will be used instead returning an empty array of strings.
      */
-
+  
     init {
 
         val prefs = activityReference.get()!!.getSharedPreferences(

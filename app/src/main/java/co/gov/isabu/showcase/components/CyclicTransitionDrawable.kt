@@ -81,6 +81,7 @@ open class CyclicTransitionDrawable(var drawables: Array<Drawable>) : LayerDrawa
             transitionStatus = TransitionState.RUNNING
 
         }
+      
         else if (transitionStatus == TransitionState.PAUSED) {
 
             val uptimeCalc = SystemClock.uptimeMillis() - startTimeMillis
@@ -92,8 +93,9 @@ open class CyclicTransitionDrawable(var drawables: Array<Drawable>) : LayerDrawa
                 transitionStatus = TransitionState.RUNNING
 
             }
-
+          
         }
+
 
         if (startTimeMillis >= 0) {
 

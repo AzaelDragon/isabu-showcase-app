@@ -12,3 +12,12 @@ android:
   licenses:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
+    - 'android-sdk-preview-license-.+'
+addons:
+  sonarcloud:
+    organization: "azaeldragon"
+    token:
+      secure: "h4jSieTwacAJrsQnjoageuQpu3AaZmRm0UQbihU7PwRuvZIxkdFoAbAKy4t1V6o2WXmFqiQM2RZAZ7BuRlyiZYz4ZYUlP39gS6LBWcK3qfmojmdNasXbESzhBYNJiGqLtDkATF65wvrVxPwbZUrbMiqxruM9J215qdJjHvNNl8WOJ+exxRv+pevUg8HVsh+kP9F5PTdo8mRAz8E9NDGxoCz32yvjoJZh+gI/wCelDpzzgVwSyz6r8daD69x30XIyq+rROguRDJJrhphkf/TfJ5lnYUXbgvaf/SBcs5ZeC0iOQ5cMzawxeBCLC+irPhtfkX9zY/yIYXuCahLhGCMFBNgKle/pFYLm91wJNUMJ0UPBkLX8cTGWk4htpTOuKQV5zdNvFD8A5DF+bEfuwsHMIpGHlnluRcyjkYw3QRhsTo0NstQYWSE2S2YD25a9ae0WrwbPU1vjOcq70UikIZLRcH/gLfuqPdzoGCVc89/dLnRViH3m9J4adLkkHuL4VnSyMLWDN1sQgNMDnbHTUT/oONNNB27EBSDg4F3NrUl+rga3uoBHGQ9EUMeoBN3M4HbhDsEO30wD94GkqLcxXHE2CiRzADsFDdlSQyH2Uv49x3hwhR8S2sHb1chnZn6kmHlZufH5kM7fi/6VqLgSRmmikfzNp3PTRd+gs55CQgaKKo4"
+
+script:
+  - ./gradlew sonarqube

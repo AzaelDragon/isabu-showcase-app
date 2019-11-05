@@ -15,6 +15,16 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.sonarqube" version "2.7.1"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "AzaelDragon_isabu-showcase-app"
+    }
+}
+
 allprojects {
     repositories {
         google()

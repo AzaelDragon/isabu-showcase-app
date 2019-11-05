@@ -4,12 +4,15 @@ import android.os.AsyncTask
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import co.gov.isabu.showcase.helpers.NetworkHelper
-import co.gov.isabu.showcase.helpers.PreferenceHelper
 import co.gov.isabu.showcase.helpers.StorageHelper
-import com.github.kittinunf.fuel.Fuel
 import org.json.JSONObject
-import java.io.File
 import java.lang.ref.WeakReference
+import android.content.Intent
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.util.Log
+import kotlin.system.exitProcess
 
 /**
  * Asynchronous Worker Task for fetching the multimedia map to the System's Internal Storage.
@@ -18,16 +21,7 @@ import java.lang.ref.WeakReference
 class JSONDownloadTask internal constructor(activity: AppCompatActivity) : AsyncTask<Unit, Int, JSONObject>() {
 
     private val activityReference: WeakReference<AppCompatActivity> = WeakReference(activity)
-
-    override fun onPreExecute() {
-
-        Toast.makeText(
-            activityReference.get(),
-            "EXECUTION TEST",
-            Toast.LENGTH_SHORT)
-            .show()
-
-    }
+    private val logTag = "Application"
 
     /**
      * Figures out if there's network connectivity, fetches the JSON file and places it in the
@@ -43,6 +37,7 @@ class JSONDownloadTask internal constructor(activity: AppCompatActivity) : Async
         return NetworkHelper.fetchMapFromRemote(activity)
 
     }
+
     /**
      * Displays a Toast depending on the outcome of doInBackground(), and launches the storage helper
      * to refresh the map indexes.
@@ -50,7 +45,7 @@ class JSONDownloadTask internal constructor(activity: AppCompatActivity) : Async
 
     override fun onPostExecute(result: JSONObject?) {
 
-        val activity = activityReference.get()
+        val activity = activityReference.get()!!
         val emptyReference = StorageHelper.buildEmptyDescriptor()
 
         if (result!! != emptyReference) {
@@ -71,7 +66,55 @@ class JSONDownloadTask internal constructor(activity: AppCompatActivity) : Async
 
         }
 
-        StorageHelper(activity!!)
+        doRestart(activity)
+
+    }
+
+    /**
+     * Restarts the application in order to make sure that all changes to the map were applied
+     * successfully after a restart, generating a new Storage Helper.
+     */
+
+    private fun doRestart(c: Context) {
+
+        try {
+
+            val pm = c.packageManager
+
+            if (pm != null) {
+
+                val mStartActivity = pm.getLaunchIntentForPackage(c.packageName)
+
+                if (mStartActivity != null) {
+
+                    mStartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+                    val mPendingIntentId = 223344
+                    val mPendingIntent = PendingIntent.getActivity(
+                        c, mPendingIntentId, mStartActivity,
+                        PendingIntent.FLAG_CANCEL_CURRENT
+                    )
+
+                    val mgr = c.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent)
+
+                    exitProcess(0)
+
+                } else {
+
+                    Log.e(logTag, "Was not able to restart application, mStartActivity null")
+
+                }
+            } else {
+
+                Log.e(logTag, "Was not able to restart application, PM null")
+
+            }
+        } catch (ex: Exception) {
+
+            Log.e(logTag, "Was not able to restart application")
+
+        }
 
     }
 

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mHidePart2Runnable = Runnable {
 
-        fullscreen_content.systemUiVisibility =
+        main_layout.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LOW_PROFILE or
             View.SYSTEM_UI_FLAG_FULLSCREEN or
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         mVisible = true
 
-        fullscreen_content.setOnClickListener { toggle() }
+        main_layout.setOnClickListener { toggle() }
 
         val mediaHelper = MediaHelper(this)
         val preferenceHelper = PreferenceHelper(this)
@@ -197,7 +197,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun show() {
 
-        fullscreen_content.systemUiVisibility =
+        main_layout.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
             View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 

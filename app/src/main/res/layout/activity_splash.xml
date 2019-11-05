@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingStart="100dp"
-    android:paddingLeft="100dp"
-    android:paddingTop="100dp"
-    android:paddingEnd="100dp"
-    android:paddingRight="100dp"
-    android:paddingBottom="100dp"
-    android:background="#138676"
-    android:keepScreenOn="true">
+    android:background="@color/colorPrimary"
+    android:keepScreenOn="true" >
 
-    <ImageView
-        android:id="@+id/splashscreen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingStart="100dp"
-        android:paddingLeft="100dp"
-        android:paddingTop="100dp"
-        android:paddingEnd="100dp"
-        android:paddingRight="100dp"
-        android:paddingBottom="250dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/isabu_logo_white"
-        android:contentDescription="@string/logo_description" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="400dp"
-        android:scaleType="center"
-        android:src="@drawable/loader" />
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintWidth_percent="0.3"
+        android:src="@drawable/loader"
+        app:layout_constraintEnd_toEndOf="@+id/splashscreen"
+        app:layout_constraintStart_toStartOf="@+id/splashscreen"
+        app:layout_constraintTop_toBottomOf="@+id/splashscreen" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/splashscreen"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintWidth_percent="0.7"
+        app:srcCompat="@drawable/isabu_logo_white"
+        android:contentDescription="@string/logo_description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

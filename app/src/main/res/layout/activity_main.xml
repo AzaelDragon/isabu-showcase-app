@@ -1,69 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_background"
-    tools:context=".activities.MainActivity"
+    android:id="@+id/main_layout"
     android:keepScreenOn="true">
 
-    <LinearLayout android:orientation="horizontal"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:id="@+id/fullscreen_content"
-        android:baselineAligned="false"
-        tools:ignore="UselessParent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clock_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/main_square"
+        app:layout_constraintEnd_toStartOf="@+id/video_layout"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.3">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/app_logo"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="60dp"
-            android:layout_weight="0.3"
-            android:background="@drawable/main_square"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/app_clock"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.35"
+            app:srcCompat="@drawable/isabu_single_logo_color"
+            android:contentDescription="@string/logo_description" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/image_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:keepScreenOn="true"
-                android:paddingStart="20dp"
-                android:paddingTop="20dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="20dp"
-                android:src="@drawable/no_resource_icon" />
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_weight="0.7"
-            android:layout_height="fill_parent"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="60dp"
+        <TextClock
+            android:id="@+id/app_clock"
             android:layout_width="0dp"
-            android:background="@drawable/main_square">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/app_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
+            android:textColor="#00796B"
+            android:textSize="40sp"/>
 
-            <VideoView
-                android:id="@+id/video_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:keepScreenOn="true"
-                android:paddingStart="50dp"
-                android:paddingTop="50dp"
-                android:paddingEnd="50dp"
-                android:paddingBottom="50dp"
-                android:src="@drawable/no_resource_icon"
-                android:layout_centerInParent="true"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </RelativeLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/image_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/main_square"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/video_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clock_layout"
+        app:layout_constraintWidth_percent="0.3">
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:contentDescription="@string/image_view_description"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/no_resource_icon" />
 
-</FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/video_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/main_square"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toEndOf="@+id/image_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.503">
+
+        <VideoView
+            android:id="@+id/video_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

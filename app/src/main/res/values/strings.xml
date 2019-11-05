@@ -10,5 +10,6 @@
     <string name="menu_sync_map_title"> Refrescar caché de multimedia </string>
 
     <string name="logo_description"> Instituto de Salud de Bucaramanga </string>
+    <string name="image_view_description"> Imágen Descargada </string>
 
 </resources>

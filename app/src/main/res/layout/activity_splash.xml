@@ -10,7 +10,8 @@
     android:paddingEnd="100dp"
     android:paddingRight="100dp"
     android:paddingBottom="100dp"
-    android:background="#138676">
+    android:background="#138676"
+    android:keepScreenOn="true">
 
     <ImageView
         android:id="@+id/splashscreen"
@@ -24,7 +25,8 @@
         android:paddingRight="100dp"
         android:paddingBottom="250dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/iabu_logo" />
+        android:src="@drawable/iabu_logo"
+        android:contentDescription="@string/logo_description" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/spinner"

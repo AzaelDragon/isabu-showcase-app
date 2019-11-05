@@ -1,52 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingStart="100dp"
-    android:paddingLeft="100dp"
-    android:paddingTop="100dp"
-    android:paddingEnd="100dp"
-    android:paddingRight="100dp"
-    android:paddingBottom="100dp"
-    android:background="#C2185B">
+    android:background="@color/colorAccent"
+    android:keepScreenOn="true">
 
     <Button
         android:id="@+id/error_button"
         android:layout_width="300dp"
         android:layout_height="75dp"
         android:layout_gravity="center"
-        android:layout_marginTop="200dp"
         android:text="@string/init_error_button"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_view"
+        app:layout_constraintStart_toStartOf="@+id/text_view"
+        app:layout_constraintTop_toBottomOf="@+id/text_view" />
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintWidth_percent="0.7"
         android:layout_gravity="center"
         android:contentDescription="@string/dummy_content"
-        android:paddingStart="100dp"
-        android:paddingTop="100dp"
-
-        android:paddingEnd="100dp"
-        android:paddingBottom="250dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/isabu_logo_white" />
+        android:src="@drawable/isabu_logo_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/text_view"
+        android:layout_width="552dp"
+        android:layout_height="71dp"
         android:layout_gravity="center"
-        android:paddingTop="225dp"
         android:text="@string/init_error_text"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#FFFFFF"
-        android:textSize="35sp"
+        android:textSize="25sp"
         android:textStyle="bold"
-        android:typeface="normal" />
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/logo"
+        app:layout_constraintStart_toStartOf="@+id/logo"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintVertical_bias="0.0" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

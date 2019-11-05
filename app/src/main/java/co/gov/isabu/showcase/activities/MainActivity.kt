@@ -2,10 +2,12 @@ package co.gov.isabu.showcase.activities
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import co.gov.isabu.showcase.R
@@ -54,6 +56,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private var videoAmount = 0
+    private var index = 0
+    private lateinit var videoView: VideoView
+    private lateinit var videoPaths: MutableList<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -74,6 +81,37 @@ class MainActivity : AppCompatActivity() {
         val imageView = findViewById<ImageView>(R.id.image_view)
         imageView.setImageDrawable(drawable)
         drawable.startTransition(preferenceHelper.getImageTransitionTime(), preferenceHelper.getImageChangeDelay())
+
+        initializePlayer()
+
+        videoView.setOnPreparedListener {mediaPlayer ->
+            mediaPlayer.setVolume(100f, 100f)
+            videoView.start()
+        }
+
+        videoView.setOnCompletionListener {
+            if (index == videoAmount)  index = 0
+            videoView.setVideoPath(videoPaths[index])
+            videoView.start()
+            index++
+        }
+
+    }
+
+    private fun initializePlayer() {
+
+        this.videoView = findViewById(R.id.video_view)
+        this.videoPaths = MediaHelper(this).getAllPaths(MediaHelper.MediaType.VIDEO)
+
+        if (videoPaths.isNotEmpty()) {
+
+            this.videoAmount = videoPaths.size
+            videoView.requestFocus()
+            Log.w("OWO", videoPaths.toString())
+            videoView.setVideoPath(videoPaths[0])
+            index++
+
+        }
 
     }
 

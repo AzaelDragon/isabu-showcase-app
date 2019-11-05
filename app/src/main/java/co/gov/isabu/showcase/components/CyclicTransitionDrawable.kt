@@ -5,7 +5,16 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.os.SystemClock
 
+/**
+ * A simple class to create a multiple-drawable single instance object representable in an image view
+ * to generate a slideshow-like presentation.
+ */
+
 open class CyclicTransitionDrawable(var drawables: Array<Drawable>) : LayerDrawable(drawables),
+
+    /**
+     * Miscellaneous animation parameters and variables.
+     */
 
     Drawable.Callback {
     private var currentDrawableIndex: Int = 0
@@ -18,6 +27,10 @@ open class CyclicTransitionDrawable(var drawables: Array<Drawable>) : LayerDrawa
 
     private var transitionStatus: TransitionState
 
+    /**
+     * Simple enum object to determine the current transition state within the object.
+     */
+
     enum class TransitionState {
 
         STARTING,
@@ -25,9 +38,20 @@ open class CyclicTransitionDrawable(var drawables: Array<Drawable>) : LayerDrawa
 
     }
 
+    /**
+     * Ensure that whenever a new drawable gets instantiated it starts in a 'Paused' state.
+     */
+
     init {
+
         transitionStatus = TransitionState.PAUSED
+
     }
+
+    /**
+     * Initialization method for a simple animation using the specified parameters. This function
+     * must be used as soon as the drawable is set in a view, or else the view might flicker.
+     */
 
     fun startTransition(durationMillis: Int, pauseTimeMillis: Int) {
 
@@ -43,36 +67,35 @@ open class CyclicTransitionDrawable(var drawables: Array<Drawable>) : LayerDrawa
 
     }
 
+    /**
+     * Draw the different specified images through object instantiation on the view's canvas.
+     */
+
     override fun draw(canvas: Canvas) {
 
         var done = true
 
-        when (transitionStatus) {
+        if  (transitionStatus == TransitionState.STARTING) {
 
-            TransitionState.STARTING -> {
+            done = false
+            transitionStatus = TransitionState.RUNNING
+
+        }
+      
+        else if (transitionStatus == TransitionState.PAUSED) {
+
+            val uptimeCalc = SystemClock.uptimeMillis() - startTimeMillis
+
+            if ( uptimeCalc > pauseDuration ) {
 
                 done = false
+                startTimeMillis = SystemClock.uptimeMillis()
                 transitionStatus = TransitionState.RUNNING
 
             }
-
-            TransitionState.PAUSED -> {
-
-                val uptimeCalc = SystemClock.uptimeMillis() - startTimeMillis
-
-                if ( uptimeCalc > pauseDuration ) {
-
-                    done = false
-                    startTimeMillis = SystemClock.uptimeMillis()
-                    transitionStatus = TransitionState.RUNNING
-
-                }
-
-            }
-
-            TransitionState.RUNNING -> {}
-
+          
         }
+
 
         if (startTimeMillis >= 0) {
 

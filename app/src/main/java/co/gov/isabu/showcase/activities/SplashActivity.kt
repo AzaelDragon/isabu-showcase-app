@@ -9,6 +9,11 @@ import co.gov.isabu.showcase.helpers.StorageHelper
 
 class SplashActivity : AppCompatActivity() {
 
+    /**
+     * Create a new activity with a simple toast and an instantiation to the storage administration
+     * helper.
+     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

@@ -8,6 +8,10 @@ import co.gov.isabu.showcase.R
 
 class ErrorActivity : AppCompatActivity() {
 
+    /**
+     * Create a new activity and assign a simple button switcher to a new activity.
+     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

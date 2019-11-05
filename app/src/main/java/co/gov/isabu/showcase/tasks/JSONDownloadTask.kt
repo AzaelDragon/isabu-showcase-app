@@ -1,17 +1,17 @@
 package co.gov.isabu.showcase.tasks
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import co.gov.isabu.showcase.helpers.NetworkHelper
 import co.gov.isabu.showcase.helpers.StorageHelper
 import org.json.JSONObject
 import java.lang.ref.WeakReference
-import android.content.Intent
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.util.Log
 import kotlin.system.exitProcess
 
 /**
@@ -51,7 +51,7 @@ class JSONDownloadTask internal constructor(activity: AppCompatActivity) : Async
         if (result!! != emptyReference) {
 
             Toast.makeText(
-                activity,
+                activity.applicationContext,
                 "Mapa de multimedia descargado con éxito.",
                 Toast.LENGTH_SHORT)
             .show()

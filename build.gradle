@@ -22,6 +22,7 @@ plugins {
 sonarqube {
     properties {
         property "sonar.projectKey", "AzaelDragon_isabu-showcase-app"
+        property "sonar.coverage.exclusions", "**/*Task.kt,**/*Drawable.kt,**/*Activity.kt"
     }
 }
 
